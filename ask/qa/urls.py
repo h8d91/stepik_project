@@ -17,5 +17,5 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
-	url(r'^$', qa.views, name='allin'),
+	url(r'^$', views.test, name='allin'),
 ]
