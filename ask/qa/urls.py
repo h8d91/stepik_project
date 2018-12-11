@@ -17,5 +17,9 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
-	url(r'^$', views.test, name='allin'),
+	url(r'^$', views.new_page_paginator, name='new_page_paginator'),
+	url(r'^popular/$', views.popular_list, name='popular_list'),
+	url(r'^question/(?P<id>\d+)/$', views.question_page, name='question_page'),
+	url(r'^post/(?P<slug>\w+)/$', views.post_details, name='post-details'),
+#	url(r'^$', views.test, name='allin'),
 ]
