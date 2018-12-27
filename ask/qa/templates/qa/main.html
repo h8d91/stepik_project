@@ -1,0 +1,26 @@
+<!-- templates/main.html -->
+<html>
+    <head>...</head>
+    <body>
+        <nav><ul class="pagination">
+        <h1>НОВЫЕ ПОСТЫ</h1>
+        {% for p in paginator.page_range %}
+            {% if p == page.number %}
+                <ul>
+			    {% for q in page %}
+				    <li>
+                        <a href="{{ q.get_url }}">{{ q.title }}</a>
+                    </li>
+			    {% endfor %}
+                </ul>
+            <li class="active">
+            {% else %}
+            <li>
+            {% endif %}
+                <a href="{{ paginator.baseurl }}{{ p }}">
+                {{ p }}</a>
+            </li>
+        {% endfor %}
+        </ul></nav>
+    </body>
+</html>
