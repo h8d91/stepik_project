@@ -1,9 +1,10 @@
 from django.shortcuts import render
 
 # Create your views here.
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.core.paginator import Paginator
 from .models import Question, Answer
+from .forms import AskForm, AnswerForm
 from django.core.urlresolvers import reverse
 
 
@@ -49,3 +50,15 @@ def question_page(request, **kwargs):
 		'question': question,
 		'answers': answers,
 	})
+
+
+def create_ask(request):
+	if request.method == "POST":
+		form = AskForm(request.POST)
+		if form.is_valid():
+			post = form.save()
+			url = post.get_url()
+			return HttpResponseRedirect(url)
+	else:
+		form = AskForm()
+	return render(request, 'blog/post_add.html', {'form': form})
