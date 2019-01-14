@@ -61,4 +61,4 @@ def create_ask(request):
 			return HttpResponseRedirect(url)
 	else:
 		form = AskForm()
-	return render(request, 'blog/post_add.html', {'form': form})
+	return render(request, 'qa/post_add.html', {'form': form})
