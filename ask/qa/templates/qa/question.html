@@ -8,20 +8,41 @@
 	<body>
 		<h1>Вопрос - {{ question.title }}</h1>
         <p>{{ question.text }}</p>
+		<h2>Ответы пользователей:</h2>
 		<ul>
 			{% for a in answers %}
 				<li>
-                    <p>{{ a.text }}</p>
-                    <!--<a href="{{ a.get_url }}">{{ a.author }}</a>-->
+                    <p>Пользователь {{ a.author }} ({{ question.added_at }})</p>
+					<p>{{ a.text }}</p>
                 </li>
 			{% endfor %}
 		</ul>
-		<!--{% if page.has_previous %}-->
-			<!--<a href="{{paginator.baseurl }}{{ page.previous_page_number }}">Назад</a>-->
-		<!--{% endif %}-->
+		<h2>Вы можете оставить ответ:</h2>
+		{% for e in form.non_field_errors %}
+		<div class="alert alert-danger">{{ e }}</div>
+		{% endfor %}
+		<form class="form-horizontal" method="post" action="{{ question.get_url }}">
+			<fieldset>
+				{% for field in answerform %}
+				<div class="control-group
+							{% if field.errors %}has-error{% endif %}">
+					<div class="controls">{{ field }}</div>
+				</div>
+				{% endfor %}
+			</fieldset>
+			{% csrf_token %}
+			<div class="form-actions">
+				<button type="submit" class="btn btn-primary">Ответить</button>
+			</div>
+		</form>
+		<!--<form class="from-horizontal" method="POST" action="/question/?next={{ question.get_url }}">-->
+			<!--{{ AnswerForm.field.text }}-->
 
-		<!--{% if page.has_next %}-->
-			<!--<a href="{{ paginator.baseurl }}{{ page.next_page_number }}">Вперёд</a>-->
-		<!--{% endif %}-->
+			<!--{% csrf_token %}-->
+			<!--<div class="form-actions">-->
+				<!--<button type="submit" class="btn btn-primary">-->
+					<!--Ответить</button>-->
+			<!--</div>-->
+		</form>
 	</body>
 </html>

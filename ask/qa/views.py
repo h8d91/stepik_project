@@ -39,16 +39,27 @@ def popular_list(request):
 
 
 def question_page(request, **kwargs):
-	try:
-		qid = int(kwargs['id'])
-		question = Question.objects.get(id=qid)
-	except:
-		raise Http404
+	if request.method == "POST":
+		form = AnswerForm(request.POST)
+		if form.is_valid():
+			post = form.save()
+			url = post.get_url()
+			return HttpResponseRedirect(url)
 
-	answers = Answer.objects.filter(question=question).order_by('-added_at').all()
-	return render(request, 'qa/question.html', {
-		'question': question,
-		'answers': answers,
+	else:
+		try:
+			qid = int(kwargs['id'])
+			question = Question.objects.get(id=qid)
+		except:
+			raise Http404
+
+		answers = Answer.objects.filter(question=question).order_by('-added_at').all()
+		answerform = AnswerForm(initial={'question': question})
+
+		return render(request, 'qa/question.html', {
+			'question': question,
+			'answers': answers,
+			'answerform': answerform,
 	})
 
 

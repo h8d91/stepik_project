@@ -5,6 +5,7 @@
     <title>post add</title>
 </head>
 <body>
+    <h1>Задайте свой вопрос</h1>
     {% for e in form.non_field_errors %}
         <div class="alert alert-danger">{{ e }}</div>
     {% endfor %}
@@ -21,7 +22,7 @@
         {% csrf_token %}
         <div class="form-actions">
             <button type="submit" class="btn btn-primary">
-            Сохранить</button>
+            Опубликовать</button>
         </div>
     </form>
 </body>
