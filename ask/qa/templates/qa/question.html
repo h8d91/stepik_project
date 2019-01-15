@@ -12,7 +12,7 @@
 		<ul>
 			{% for a in answers %}
 				<li>
-                    <p>Пользователь {{ a.author }} ({{ question.added_at }})</p>
+                    <p>Пользователь {{ a.author }} ({{ a.added_at }})</p>
 					<p>{{ a.text }}</p>
                 </li>
 			{% endfor %}

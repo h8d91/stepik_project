@@ -43,8 +43,8 @@ def question_page(request, **kwargs):
 		form = AnswerForm(request.POST)
 		if form.is_valid():
 			post = form.save()
-			url = post.get_url()
-			return HttpResponseRedirect(url)
+			# url = post.get_url()
+			return HttpResponse('200')
 
 	else:
 		try:
