@@ -43,7 +43,9 @@ def question_page(request, **kwargs):
 		form = AnswerForm(request.POST)
 		if form.is_valid():
 			post = form.save()
-			# url = post.get_url()
+			url = "/question/{}/".format(kwargs['id'])
+			return HttpResponseRedirect(url)
+		else:
 			return HttpResponse('200')
 
 	else:
@@ -54,7 +56,7 @@ def question_page(request, **kwargs):
 			raise Http404
 
 		answers = Answer.objects.filter(question=question).order_by('-added_at').all()
-		answerform = AnswerForm(initial={'question': question})
+		answerform = AnswerForm(initial={'question': question.id})
 
 		return render(request, 'qa/question.html', {
 			'question': question,

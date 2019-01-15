@@ -37,6 +37,3 @@ class Answer(models.Model):
 
     def __str__(self):
         return self.text
-
-    def get_url(self):
-        return "/question/{}/".format(Question.objects.get(id))
