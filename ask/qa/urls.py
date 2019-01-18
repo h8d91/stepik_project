@@ -16,9 +16,13 @@ Including another URLconf
 from django.conf.urls import url
 from . import views
 
+
 urlpatterns = [
-	url(r'^$', views.new_page_paginator, name='new_page_paginator'),
+	url(r'^$', views.main, name='main'),
 	url(r'^popular/$', views.popular_list, name='popular_list'),
 	url(r'^question/(?P<id>\d+)/$', views.question_page, name='question_page'),
 	url(r'^ask/$', views.create_ask, name='create_ask'),
+	# url(r'^signup/$', views.my_sign_up, name='my_sign_up')
+	# url(r'^login/$', views.my_login, name='my_login')
+	# url(r'^logout/$', views.my_logout, name='my_logout')
 ]

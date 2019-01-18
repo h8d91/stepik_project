@@ -8,16 +8,24 @@ from .forms import AskForm, AnswerForm
 from django.core.urlresolvers import reverse
 
 
-def test(request, *args, **kwargs):
-	return HttpResponse('Ok')
+def my_sign_up():
+	pass
 
 
-def new_page_paginator(request):
+def my_login():
+	pass
+
+
+def my_logout():
+	pass
+
+
+def main(request):
 	posts = Question.objects.new()
 	limit = request.GET.get('limit', 10)
 	page = request.GET.get('page', 1)
 	paginator = Paginator(posts, limit)
-	paginator.baseurl = reverse('new_page_paginator') + '?page='
+	paginator.baseurl = reverse('main') + '?page='
 	page = paginator.page(page)
 	return render(request, 'qa/main.html', {
 	'posts': page.object_list,
