@@ -4,50 +4,51 @@ from django.shortcuts import render
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.core.paginator import Paginator
 from .models import Question, Answer
-from .forms import AskForm, AnswerForm, My_loginForm, My_sign_upForm
+from .forms import AskForm, AnswerForm
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import logout as logout_
+from django.contrib.auth import logout
 
 
-def my_sign_up(request):
-	if request.method == 'POST':
-		form = My_sign_upForm(request.POST)
-		if form.is_valid():
-			user = form.save(request)
-			if user != None:
-				resp = HttpResponseRedirect('/')  # Replace to request.next
-				return resp
-	else:
-		form = My_sign_upForm()
-
-	return render(request, 'qa/signup.html', {
-		'form': form,
-	})
-
-
-def my_login(request):
-	if request.method == 'POST':
-		form = My_loginForm(request.POST)
-		if form.is_valid():
-			user = form.save(request)
-			if user != None:
-				resp = HttpResponseRedirect('/')  # Replace to request.next
-				return resp
-	else:
-		form = My_loginForm()
-
-	return render(request, 'qa/login.html', {
-		'form': form,
-	})
-
-
-def my_logout(request):
-	if request.method == 'POST':
-		logout_(request)
-		return HttpResponseRedirect(request.GET.get('next', '/'))
-
-	raise Http404
+# def my_sign_up(request):
+# 	if request.method == 'POST':
+# 		form = My_sign_upForm(request.POST)
+# 		if form.is_valid():
+# 			user = form.save(request)
+# 			if user != None:
+# 				resp = HttpResponseRedirect('/')  # Replace to request.next
+# 				return resp
+#
+# 	else:
+# 		form = My_sign_upForm()
+#
+# 	return render(request, 'qa/signup.html', {
+# 		'form': form,
+# 	})
+#
+#
+# def my_login(request):
+# 	if request.method == 'POST':
+# 		form = My_loginForm(request.POST)
+# 		if form.is_valid():
+# 			user = form.save(request)
+# 			if user != None:
+# 				resp = HttpResponseRedirect('/')  # Replace to request.next
+# 				return resp
+# 	else:
+# 		form = My_loginForm()
+#
+# 	return render(request, 'qa/login.html', {
+# 		'form': form,
+# 	})
+#
+#
+# def my_logout(request):
+# 	if request.method == 'POST':
+# 		logout_(request)
+# 		return HttpResponseRedirect(request.GET.get('next', '/'))
+#
+# 	raise Http404
 
 
 def main(request):
@@ -76,7 +77,7 @@ def popular_list(request):
 	})
 
 
-#@login_required(login_url='/login/', redirect_field_name='next')
+@login_required(login_url='/login/', redirect_field_name='next')
 def question_page(request, **kwargs):
 	if request.method == "POST":
 		form = AnswerForm(request.POST)
@@ -107,7 +108,7 @@ def question_page(request, **kwargs):
 	})
 
 
-#@login_required(login_url='/login/', redirect_field_name='next')
+@login_required(login_url='/login/', redirect_field_name='next')
 def create_ask(request):
 	if request.method == "POST":
 		form = AskForm(request.POST)

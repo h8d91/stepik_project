@@ -10,6 +10,7 @@ admin.site.register(Answer, Answers)
 
 
 class Questions(admin.ModelAdmin):
+    # list_display = ('title', 'text', 'added_at', 'rating', 'author')
     list_display = ('title', 'text', 'added_at', 'rating', 'author', 'likes')
 
 
